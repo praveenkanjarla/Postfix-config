@@ -1,0 +1,48 @@
+  7 #myorigin = /etc/mailname
+  8 
+  9 smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+ 10 biff = no
+ 11 
+ 12 # appending .domain is the MUA's job.
+ 13 append_dot_mydomain = no
+ 14 
+ 15 # Uncomment the next line to generate "delayed mail" warnings
+ 16 #delay_warning_time = 4h
+ 17 
+ 18 readme_directory = no
+ 19 
+ 20 # See http://www.postfix.org/COMPATIBILITY_README.html -- default to 2 on
+ 21 # fresh installs.
+ 22 compatibility_level = 2
+ 23 
+ 24 # TLS parameters
+ 25 smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+ 26 smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+ 27 smtpd_use_tls=yes
+ 28 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+ 29 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+ 30 
+ 31 # See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
+ 32 # information on enabling SSL in the smtp client.
+ 33 
+ 34 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+ 35 #myhostname = Ambidextrous
+ 36 myhostname = Ambidextrous.com
+ 37 
+ 38 alias_maps = hash:/etc/aliases
+ 39 alias_database = hash:/etc/aliases
+ 40 mydestination = $myhostname, Praveen, Ambidextrous, localhost.localdomain, localhost
+ 41 #relayhost = 
+ 42 relayhost = [smtp.gmail.com]:587
+ 43 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+ 44 mailbox_size_limit = 0
+ 45 recipient_delimiter = +
+ 46 inet_interfaces = all
+ 47 inet_protocols = all
+ 48 
+ 49 
+ 50 smtp_use_tls = yes
+ 51 smtp_sasl_auth_enable = yes
+ 52 smtp_sasl_security_options = noanonymous
+ 53 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+ 54 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
